@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { RouterLink, RouterOutlet } from '@angular/router';
 import { JeuService } from '../services/jeu.service';
 import { Jeu } from '../jeux.model';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-jeux',
@@ -13,8 +14,8 @@ import { Jeu } from '../jeux.model';
 export class JeuxComponent implements OnInit {
   jeux: Jeu[] = [];
 
-  constructor(private jeuservice: JeuService) {}
-
+  constructor(private jeuservice: JeuService,
+    public authService: AuthService) { }
   ngOnInit() {
     this.chargerJeux();
   }

@@ -25,8 +25,10 @@
                                 <td>{{ jeu.prixjeu }}</td>
                                 <td>{{ jeu.dateCreation | date:'dd/MM/yyyy' }}</td>
                                 <td>{{ jeu.genre?.nomGen }}</td>
-                                <td><a class="btn btn-danger" (click)="supprimerJeu(jeu)">supprimer</a></td>
-                                <td><a class="btn btn-success" [routerLink]="['/updateJeu', jeu.idjeu]">Modifier</a></td>
+@if(authService.isAdmin()) {
+<td><a class="btn btn-danger" (click)="supprimerJeu(jeu)">Supprimer</a></td>
+<td><a class="btn btn-success" [routerLink]="['/updateJeu',jeu.idjeu]">Modifier</a></td>
+}
                             </tr>
                         }
                     </tbody>

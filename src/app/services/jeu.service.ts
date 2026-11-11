@@ -19,33 +19,33 @@ export class JeuService {
   jeu!: Jeu;
   genres!: Genre[];
 
-  // 4 genres proposés par défaut (utilisés si le serveur n'en renvoie aucun)
+ 
   genresParDefaut: Genre[] = [
     { idGen: 1, nomGen: 'Action' },
-    { idGen: 2, nomGen: 'Aventure' },
+    { idGen: 2, nomGen: 'Party games' },
     { idGen: 3, nomGen: 'Sport' },
     { idGen: 4, nomGen: 'Stratégie' },
   ];
 
-  // 3 jeux affichés par défaut sur la page d'accueil
+  
   private jeuxParDefaut(): Jeu[] {
     return [
       { idjeu: 1, nomjeu: 'Battlefield 5', prixjeu: 59.99, dateCreation: new Date('2018-11-20'), genre: this.genresParDefaut[0] },
       { idjeu: 2, nomjeu: 'Fall Guys', prixjeu: 19.99, dateCreation: new Date('2020-08-04'), genre: this.genresParDefaut[1] },
-      { idjeu: 3, nomjeu: 'Forza Horizon 5', prixjeu: 59.99, dateCreation: new Date('2021-11-09'), genre: this.genresParDefaut[2] },
+      { idjeu: 3, nomjeu: 'Forza Horizon 5', prixjeu: 49.99, dateCreation: new Date('2021-11-09'), genre: this.genresParDefaut[2] },
     ];
   }
 
   apiURL: string = 'http://localhost:8080/jeux/api';
   apiURLGen: string = 'http://localhost:8080/jeux/gen';
 
-  // null = pas encore testé, true = mode local (sans serveur), false = serveur Spring Boot utilisé
+
   private modeLocal: boolean | null = null;
   private jeuxLocaux: Jeu[] = this.chargerLocal();
 
   constructor(private http: HttpClient) {}
 
-  /* ---------- Stockage local (utilisé seulement si le serveur est indisponible ou vide) ---------- */
+
 
   private chargerLocal(): Jeu[] {
     try {
@@ -64,7 +64,7 @@ export class JeuService {
     } catch { /* ignore */ }
   }
 
-  // Détecte une seule fois si le serveur répond avec des données
+
   private estLocal(): Observable<boolean> {
     if (this.modeLocal !== null) return of(this.modeLocal);
     return this.http.get<Jeu[]>(this.apiURL).pipe(
@@ -79,7 +79,7 @@ export class JeuService {
     );
   }
 
-  /* ---------- Jeux ---------- */
+
 
   listeJeu(): Observable<Jeu[]> {
     return this.estLocal().pipe(
@@ -135,10 +135,6 @@ export class JeuService {
     );
   }
 
-  /* ---------- Genres ---------- */
-
-  // Accepte les deux formats : { _embedded: { genres: [...] } } ou un tableau simple [...]
-  // Si le serveur ne renvoie rien (ou est en erreur), on propose les 4 genres par défaut.
   listeGenre(): Observable<GenreWrapper> {
     const defaut: GenreWrapper = { _embedded: { genres: this.genresParDefaut } };
     return this.estLocal().pipe(
@@ -159,7 +155,6 @@ export class JeuService {
     return this.genres.find((gen) => gen.idGen == id)!;
   }
 
-  /* ---------- Recherches ---------- */
 
   rechercheParGenre(idGen: number): Observable<Jeu[]> {
     return this.estLocal().pipe(
