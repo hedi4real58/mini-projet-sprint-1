@@ -21,7 +21,7 @@ export class AddJeuxComponent implements OnInit {
   newGenre!: Genre;
 
   constructor(private jeuservice: JeuService,
-              private router: Router) {}
+              private router: Router ) {}
 
   ngOnInit(): void {
     this.jeuservice.listeGenre().subscribe(gens => {

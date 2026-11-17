@@ -1,3 +1,8 @@
+
+
+
+
+
 import { Injectable } from '@angular/core';
 import { User } from '../model/user.model';
 import { Router } from '@angular/router';
@@ -7,7 +12,7 @@ import { Router } from '@angular/router';
 })
 export class AuthService {
   users: User[] = [{ "username": "admin", "password": "123", "roles": ['ADMIN'] },
-  { "username": "nadhem", "password": "123", "roles": ['USER'] }];
+  { "username": "hedi", "password": "123", "roles": ['USER'] }];
   public loggedUser!: string;
   public isloggedIn: Boolean = false;
   public roles!: string[];
